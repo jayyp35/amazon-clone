@@ -1,8 +1,17 @@
 import React from 'react'
 import book2 from './book1.jfif'
 import './CheckoutProduct.css'
+import { useStateValue } from './StateProvider';
 
 function CheckoutProduct({id,name,desc,price,rating}) {
+    const [{basket},dispatch] = useStateValue();
+    const removeFromBasket = () => {
+        //remove the item from the basket
+        dispatch({
+            type:'REMOVE_FROM_BASKET',
+            id:id
+        })
+    }
     return (
         <div className="checkout-product">
 
@@ -17,8 +26,7 @@ function CheckoutProduct({id,name,desc,price,rating}) {
                     <small> $ </small>
                     <strong>{price}</strong>
                 </p>
-                <p><button>Remove from Cart</button></p>
-                {/* {Array(rating).fill().map((_,i) => {<p>hi</p>})} */}
+                <p><button onClick={removeFromBasket}>Remove from Cart</button></p>
             </div>
         </div>
     )
