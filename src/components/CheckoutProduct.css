@@ -1,0 +1,21 @@
+.checkout-product {
+    margin:10px;
+    display: flex;
+    height:10rem;    
+}
+
+.checkout-product-image{
+    flex-direction: column;
+    margin:5px;
+}
+
+.checkout-product-image > img {
+    object-fit: contain;
+    height:100%;
+}
+
+.checkout-product-info {
+    flex-direction: column;
+    padding-top:10px;
+    text-align: left;
+} 
