@@ -3,8 +3,11 @@ import './Checkout.css'
 import Product from './Product'
 import Subtotal from './Subtotal'
 import amz_checkout_ad from './amz_checkout_ad.png'
+import CheckoutProduct from './CheckoutProduct'
+import { useStateValue } from './StateProvider'
 
-function Chekcout() {
+function Checkout() {
+    const [{basket},dispatch] = useStateValue();
     return (
         <div className="checkout">
             <img src={amz_checkout_ad} alt="Checkout Ad"></img>
@@ -14,9 +17,15 @@ function Chekcout() {
                         <h3> Your Shopping Cart </h3>
                     </div>
                     <div className="checkout-products">
-                        <Product/>
-                        <Product/>
-                        <Product/>
+                        {basket.map(function(item,index){
+                            return <CheckoutProduct
+                                id={item.id}
+                                name={item.name}
+                                desc={item.desc}
+                                price={item.price}
+                            /> 
+                        })}
+                    
                     </div>
                 </div>
 
@@ -30,4 +39,4 @@ function Chekcout() {
     )
 }
 
-export default Chekcout
+export default Checkout
