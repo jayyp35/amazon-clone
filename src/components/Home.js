@@ -11,7 +11,7 @@ function Home() {
             </div>
 
             <div className="home-row">
-                <Product name="Book of Genesis" desc="The best book that tells you everything about the bible" price ={19.99} rating={4}/>
+                <Product id="000001" name="Book of Genesis" desc="The best book that tells you everything about the bible" price ={19.99} rating={4}/>
                 <Product/>
             </div>
             <div className="home-row">
