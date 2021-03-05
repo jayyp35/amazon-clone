@@ -2,6 +2,7 @@ export const initialState = {
     basket: [],
 };
 
+//Selector
 const reducer = (state,action) => {
     console.log(action);
     switch(action.type) {
