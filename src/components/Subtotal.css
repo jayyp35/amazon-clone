@@ -1,0 +1,25 @@
+.subtotal-card {
+    background-color: white;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.subtotal-gift {
+    align-items:center ;
+}
+
+p{
+    margin:0;
+    
+}
+
+button {
+    margin-top: 14px;
+    padding: 3px;
+    background-color: #f0c14b;
+    border: 1px solid;
+    border-color: #a88734 #9c7e31 #846a29;
+    border-radius: 2px;
+}
