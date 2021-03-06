@@ -1,0 +1,76 @@
+.payment {
+    background-color: rgb(237,237,237);
+    height: 90vh;
+}
+
+.payment-info{
+    background-color:white;
+    border: 1px solid rgb(221, 221, 221);
+    height: 25vh;
+    display: flex;
+    align-items: center;
+    padding-left: 2vw;
+    margin: 8px;
+    
+}
+
+.payment-title {
+    
+    flex-direction: column;
+    width: 20%;
+    text-align: left;
+}
+
+.payment-data {
+    text-align: left;
+}
+
+.payment-total{
+    background-color: white;
+    border: 1px solid rgb(221, 221, 221);
+    display: flex;
+    margin:8px;
+    padding: 2vw;
+}
+
+.payment-card {
+    border: 1px solid rgb(221, 221, 221);
+    background-color: white;
+    margin:8px;
+    height: 300px;
+}
+
+.payment-card-details {
+    box-sizing: border-box;
+    background-color: rgb(114, 114, 114);
+    border:1px solid black;
+    border-radius: 10px;
+    width: 300px;
+    height:160px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 40px;
+    color: rgb(255, 255, 255);
+    transition: all;
+    transition-duration: 100ms;
+}
+
+.payment-card-details:hover {
+    transform : scale(1.02)
+}
+
+
+
+.payment-card-details > div > input {
+    border: 1px solid rgb(207, 207, 207);
+    border-radius: 3px;
+    float: right;
+    width: 50%;
+    margin-right: 10px;
+    height: 16px;
+}
+
+.payment-button {
+    width: 60px;
+    height: 30px;
+}
