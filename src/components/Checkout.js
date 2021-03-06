@@ -14,7 +14,7 @@ function Checkout() {
             <div className="checkout-body">
                 <div className="checkout-details">
                     <div className="checkout-title">
-                        <h3> Your Shopping Cart : <small>{user.email}</small> </h3>
+                        <h3> Your Shopping Cart : <small>{user && user.email}</small> </h3>
                     </div>
                     <div className="checkout-products">
                         {basket.map(function(item,index){
