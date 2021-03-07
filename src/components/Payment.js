@@ -1,11 +1,61 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import CheckoutProduct from './CheckoutProduct'
 import { useStateValue } from './StateProvider'
 import './Payment.css'
-import Subtotal from './Subtotal';
+import {Link,useHistory} from 'react-router-dom'
+import {CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import axios from './axios'
 
 function Payment() {
     const [{basket,user},dispatch] = useStateValue();
+    const history = useHistory();
+    //stripe
+    const stripe= useStripe();
+    const elements = useElements();
+
+    const [succeeded,setSucceeded] = useState(false);
+    const [processing,setProcessing] = useState("");
+    const [error,setError] = useState(null);
+    const [disabled,setDisabled] = useState(true);
+    const [clientSecret,setClientSecret] = useState(true);
+
+    useEffect(()=>{
+        //generate special stripe secret to allow us to charge customer
+        const getClientSecret = async () => {
+            const response = await axios({
+                method:'post',
+                url:`/payments/create?total=100`
+            })
+            setClientSecret();
+        }
+        getClientSecret();
+    },[basket])
+
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        setProcessing(true)
+
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({paymentIntent}) => {
+            //paymentIntent is the payment confirmation
+            setSucceeded(true);
+            setError(null);
+            setProcessing(false)
+
+            history.replace('./orders')
+        })
+        
+    }
+
+    const handleChange = (event) => {
+        setDisabled(event.empty)
+        setError(event.error ? event.error.message : "")
+    }
+
+
     return (
         <div className="payment">
             <div className="payment-info">
@@ -29,23 +79,23 @@ function Payment() {
             </div>
 
             <div className="payment-card">
-                <h3>Enter Card Details</h3>
+                <h4>Enter Card Details</h4>
+                
                 <div className="payment-card-details">
-                    <div className="payment-card-details-cardnum">
-                        <strong>Card Number</strong>
-                        <input type="text" placeholder="XXXX-XXXX-XXXX"></input>
-                    </div>
-                    <div className="payment-card-details-cvv">
-                        <strong>CVV</strong>
-                        <input type="text" placeholder="XXX"></input>
-                    </div>
-                    <div className="payment-card-details-exp">
-                        <strong>Exp</strong>
-                        <input type="text" placeholder="MM/YY"></input>
+                    <div className="payment-card-field">
+                        <form onSubmit={handleSubmit}>
+                            <CardElement  onChange={handleChange}/>
+
+                            <button disabled={processing || disabled || succeeded} className="payment-button">
+                                <span>{processing? <p>Processing</p>: "Buy Now"}</span>
+                            </button>
+
+                            {error && <div>{error}</div>}
+                        </form>
                     </div>
                 </div>
 
-                <button className="payment-button">Pay</button>
+                
             </div>
             
         </div>
