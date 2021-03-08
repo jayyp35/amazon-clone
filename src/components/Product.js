@@ -30,10 +30,10 @@ function Product({id,name,desc,price,rating}) {
                 </p>
                 {/* {Array(rating).fill().map((_,i) => {<p>hi</p>})} */}
             </div>
-
+ 
 
             <div className="product-image">
-                <img src={book1} alt="book"></img>     
+                <img src="https://lh3.googleusercontent.com/3w2m6cnwkQMgfmBddI7PIRRiZK6nD-84d3-Kl1Lm7FGLMWu1Jr0QR-OFJPkg2c-sSm7oOdEJZfaplGn9Wz6pmi4hifisWAwVeGWHFTBfFDSN2C4KHoSi9T_x63coYYqkkpScpfPX=w2400" alt="book"></img>     
             </div>
 
             <div className="product-add">

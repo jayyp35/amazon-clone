@@ -13,25 +13,21 @@ let i = 0
 function Home() {
     
     const [imgurl,seturl] = useState(images[i])
-    let show
     useEffect(()=> {
-        show=1
+       
         const f = setInterval(()=>{
-            show=0
             i=(i+1)%5
             seturl(images[i])
-            console.log(i);
         },8000)
 
         return () => {
             clearInterval(f)
-            show=0
         }
     })
     return (
         <div className="home">
             <div className="home-container">
-                <img className="home-img-ad" show={show} src={imgurl} alt="Prime AD"></img>
+                <img className="home-img-ad" src={imgurl} alt="Prime AD"></img>
             </div>
 
             <div className="home-row">
