@@ -1,5 +1,6 @@
 export const initialState = {
     basket: [],
+    basketTotal:0.00,
     user:null
 };
 
@@ -11,14 +12,16 @@ const reducer = (state,action) => {
             return {
                 ...state,
                 basket: [...state.basket,action.item],
+                basketTotal: state.basketTotal + action.item.price
             }
         case 'REMOVE_FROM_BASKET':
             const index = state.basket.findIndex(
                 (basketItem) => basketItem.id === action.id
             );
             let newBasket = [...state.basket]
-
+            let newTotal = state.basketTotal
             if(index >= 0) {
+                newTotal = newTotal - state.basket[index].price
                 newBasket.splice(index,1)
             } else {
                 console.log("No such product exists in Cart");
@@ -26,7 +29,8 @@ const reducer = (state,action) => {
 
             return {
                 ...state,
-                basket: newBasket
+                basket: newBasket,
+                basketTotal:newTotal
             }
         
         case 'SET_USER' :
