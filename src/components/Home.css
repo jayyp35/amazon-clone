@@ -1,14 +1,33 @@
+@keyframes slide {
+    0% {opacity:0}
+    4%{opacity: 0}
+    10%{opacity:1}
+    96%{opacity:1}
+    100%{opacity:0}
+}
 .home {
-    background-color: rgb(234, 237, 237);
+    background-color: rgb(237, 237, 237);
 }
 
 .home-img-ad {
     width: 100%;
     z-index:-1;
+    opacity: 1;
+    transition-property: all;
+    transition-duration: 1s;
+    animation-name:slide;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+}
+
+
+.home-container {
+    height:300px; 
 }
 
 .home-row {
     display: flex;
     margin-left: 5px;
     margin-right: 5px;
+    z-index: 1;
 }

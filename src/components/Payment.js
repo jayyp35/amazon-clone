@@ -1,77 +1,33 @@
-import React, { useState,useEffect } from 'react'
-import CheckoutProduct from './CheckoutProduct'
+import React, { useState } from 'react'
 import { useStateValue } from './StateProvider'
 import './Payment.css'
-import {Link,useHistory} from 'react-router-dom'
-import {CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import axios from './axios'
+import { Link, Redirect, useHistory } from 'react-router-dom';
+
 
 function Payment() {
-    const [{basket,user},dispatch] = useStateValue();
+    const [{basket,user}] = useStateValue();
     const history = useHistory();
-    //stripe
-    const stripe= useStripe();
-    const elements = useElements();
+    
+    const [inputs,setInputs] = useState({
+        cardnum: null,
+        exp: null,
+        cvv: null
+    })
 
-    const [succeeded,setSucceeded] = useState(false);
-    const [processing,setProcessing] = useState("");
-    const [error,setError] = useState(null);
-    const [disabled,setDisabled] = useState(true);
-    const [clientSecret,setClientSecret] = useState(true);
-
-    useEffect(()=>{
-        //generate special stripe secret to allow us to charge customer
-        const getClientSecret = async () => {
-            const response = await axios({
-                method:'post',
-                url:`/payments/create?total=100`
-            })
-            setClientSecret();
-        }
-        getClientSecret();
-    },[basket])
-
-    const handleSubmit = async(event) => {
-        event.preventDefault();
-        setProcessing(true)
-
-        const payload = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement)
-            }
-        }).then(({paymentIntent}) => {
-            //paymentIntent is the payment confirmation
-            setSucceeded(true);
-            setError(null);
-            setProcessing(false)
-
-            history.replace('./orders')
-        })
-        
+    function initiatePayment() {
+        console.log("Payment Initiated");
+        setTimeout(() => {
+            history.push('/orders')
+        }, 2000);
     }
-
-    const handleChange = (event) => {
-        setDisabled(event.empty)
-        setError(event.error ? event.error.message : "")
-    }
-
 
     return (
         <div className="payment">
             <div className="payment-info">
-                <div className="payment-title">
-                    <div><strong>Name: </strong></div>
-                    <div><strong>Phone Number: </strong></div>
-                    <div><strong>Email Address: </strong></div>
-                    <div><strong>Delivery Address: </strong></div>
-                    
-                </div>
-                <div  className="payment-data">
-                    <div>Name</div> 
-                    <div>8587013931</div>
-                    <div>{user.email}</div>
-                    <div>E5/68 , Sector-16, Rohini, New Delhi</div>
-                </div>
+                    <div className="payment-info-item"><strong>Name: </strong>Name</div>
+                    <div className="payment-info-item"><strong>Phone Number: </strong>8587013931</div>
+                    <div className="payment-info-item"><strong>Email Address: </strong>{user && user.email}</div>
+                    <div className="payment-info-item"><strong>Delivery Address: </strong>E5/68 , Sector-16, Rohini, New Delhi</div>
             </div>
 
             <div className="payment-total">
@@ -83,18 +39,20 @@ function Payment() {
                 
                 <div className="payment-card-details">
                     <div className="payment-card-field">
-                        <form onSubmit={handleSubmit}>
-                            <CardElement  onChange={handleChange}/>
-
-                            <button disabled={processing || disabled || succeeded} className="payment-button">
-                                <span>{processing? <p>Processing</p>: "Buy Now"}</span>
-                            </button>
-
-                            {error && <div>{error}</div>}
+                        <form>
+                            <div>Card Number </div>
+                            <input value={inputs.cardnum} className="payment-card-num" onChange={(e) => {setInputs({cardnum:e.target.value})}} placeholder="XXXX-XXXX-XXXX-XXXX" required/>
+                            <div>Exp</div>
+                            <input value={inputs.exp} className="payment-card-exp" onChange={(e) => {setInputs({exp:e.target.value})}} placeholder="MM/YY" required/>
+                            <div>CVV</div>
+                            <input value={inputs.cvv} className="payment-card-cvv" onChange={(e) => {setInputs({cvv:e.target.value})}} placeholder="XXX" required/>
                         </form>
                     </div>
+                    
                 </div>
-
+                
+                <button onClick={initiatePayment} className="payment-button">Pay</button>
+                
                 
             </div>
             
