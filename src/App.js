@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import './App.css';
 import Header from './components/Header'
 import Home from './components/Home'
@@ -9,12 +9,13 @@ import { auth, db } from './components/firebase';
 import { useStateValue } from './components/StateProvider';
 import Payment from './components/Payment';
 import Orders from './components/Orders';
-import { CardActions } from '@material-ui/core';
+import Loading from './components/Loading';
 
 
 function App() {
   const [{},dispatch] = useStateValue();
-
+  const [data,gotData] = useState(false);
+  let obj
   useEffect(() => {
       //Runs once when app component loads
       auth.onAuthStateChanged(authUser => {
@@ -35,12 +36,13 @@ function App() {
         }
       })
 
-
+      
       const cityRef = db.collection('store').doc('products')
         const docu = cityRef.get()
         docu.then((docu)=> {
-           let obj = docu.data() 
-        
+           obj = docu.data() 
+          console.log("loaded",obj);
+          gotData(true)
            dispatch({
              type:'SET_STORE',
              books:obj.books,
@@ -63,8 +65,8 @@ function App() {
         </Route>
         
         <Route path='/' exact>
-          <Header/> 
-          <Home/>
+          <Header/>
+          {data? <Home/>:<Loading/>}
         </Route>
 
         <Route path='/checkout'>
@@ -82,6 +84,7 @@ function App() {
           <Header/>
           <Orders/>
         </Route>
+
 
       </Switch>
       </div>
