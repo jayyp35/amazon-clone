@@ -1,10 +1,10 @@
-@keyframes slide {
+/* @keyframes slide {
     0% {opacity:0}
     4%{opacity: 0}
     10%{opacity:1}
     96%{opacity:1}
     100%{opacity:0}
-}
+} */
 .home {
     background-color: rgb(237, 237, 237);
 }

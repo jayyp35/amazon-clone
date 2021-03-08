@@ -3,19 +3,19 @@ import './Product.css'
 import book1 from './book1.jfif'
 import { useStateValue } from './StateProvider';
 
-function Product({id,name,desc,price,rating}) {
+function Product({name,desc,price,img_url}) {
     const [{basket},dispatch] = useStateValue();
     console.log("Items in Basket", basket);
+    console.log(img_url);
     const addToBasket = () => {
         //dispath item into the data layer
         dispatch({
             type: 'ADD_TO_BASKET',
             item: {
-                id:id,
                 name: name,
                 desc: desc,
                 price: price,
-                rating: rating,
+                img_url: img_url,
             }
         })
     }
@@ -33,7 +33,7 @@ function Product({id,name,desc,price,rating}) {
  
 
             <div className="product-image">
-                <img src="https://lh3.googleusercontent.com/3w2m6cnwkQMgfmBddI7PIRRiZK6nD-84d3-Kl1Lm7FGLMWu1Jr0QR-OFJPkg2c-sSm7oOdEJZfaplGn9Wz6pmi4hifisWAwVeGWHFTBfFDSN2C4KHoSi9T_x63coYYqkkpScpfPX=w2400" alt="book"></img>     
+                <img src={img_url} alt="book"></img>     
             </div>
 
             <div className="product-add">

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { db } from './firebase'
 import './Home.css'
 import Product from './Product'
+import { useStateValue } from './StateProvider'
 
 const images = [
     'https://lh3.googleusercontent.com/P7eMUwp9qFLeuOw8hF5hUAXSGIy1_3jMJrDdq1RIQgtwRAHcZ6k3tKsjjcNBhbF8Ht3R7RysoLUnsEwpGk-bbm4TgoVumolBy031f_GmtPCgt5-MDOvaIJ6cM6wtuwxHY4j4rhFn=w2400',
@@ -11,19 +13,24 @@ const images = [
 ]
 let i = 0
 function Home() {
-    
+    const [user] = useStateValue()
     const [imgurl,seturl] = useState(images[i])
-    useEffect(()=> {
-       
-        const f = setInterval(()=>{
-            i=(i+1)%5
-            seturl(images[i])
-        },8000)
+    const [books,setBooks] = useState('')
+    const [electronics,setElectronics] = useState('')
+    const [tv,setTv] = useState('')
+    
+    const cityRef = db.collection('store').doc('products')
+        const docu = cityRef.get()
+        docu.then((docu)=> {
+            
+        setBooks(docu.data().books)
+        setElectronics(docu.data().electronics)
+        setTv(docu.data().tv)
 
-        return () => {
-            clearInterval(f)
-        }
-    })
+        })
+   
+
+
     return (
         <div className="home">
             <div className="home-container">
@@ -31,16 +38,13 @@ function Home() {
             </div>
 
             <div className="home-row">
-                <Product id="000001" name="Book of Genesis" desc="The best book that tells you everything about the bible" price ={19.99} rating={4}/>
-                <Product/>
+                {books && books.map((book,index) => <Product name={book.name} desc={book.desc} price ={book.price} img_url={book.img_url}/>)}
             </div>
             <div className="home-row">
-                <Product/>
-                <Product/>
-                <Product/>
+                {electronics && electronics.map((elec,index) => <Product name={elec.name} desc={elec.desc} price ={elec.price} img_url={elec.img_url}/>)}
             </div>
             <div className="home-row">
-                <Product/>
+                {tv && tv.map((t,index) => <Product name={t.name} desc={t.desc} price ={t.price} img_url={t.img_url}/>)}
             </div>
         </div>
     )
