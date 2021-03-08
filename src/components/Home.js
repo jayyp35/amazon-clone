@@ -9,32 +9,23 @@ const images = [
     'https://lh3.googleusercontent.com/ZtgIw-Qg-RD5TJl5H4lgL32ArZHRqldqhy_RlIPq2g513Nh-a9O9ZVOyUAzplSC_JcAauzAm86_oxm4CHw0Wjo5M6P9FR-cHO_5_GMjgxk9olGUXns7M-WYhjD1QHHETHpeXAEh4=w2400',
     'https://lh3.googleusercontent.com/sPD79imf9IxeOdF592R8JgV6OUfuZEE-u-supcGWORQRXhpEG4EBefQ1my_JbZ69AAI_JFlOdWaDTj4rBGDRW0KBq7u55LMQYGQuzibwfXWCIik7h5Xzp2EJVCxpx9kr0dtDX4Wl=w2400',
     'https://lh3.googleusercontent.com/xawpAyXHhm50Ayc2tgh5xRpt19GMHj89MjRdWTCw_MWATSQWk02vXZDKGLrQMEBTL7ZPF02pQi7tgGhsrAhJbWd9TUrBNfAMgDNHgJ3xiSrfHzAWaWemqPTvCYzrRLyvMWGRMyhr=w2400',
-    'https://lh3.googleusercontent.com/zv4GnwiPPogXl3G5UyUQG4Eg2wdtKrzbFwKOxxrrGgqRPuJcGqP7U93i4cYKKYZpzBg_tAluuM7wXy_uywMncvC6HSJVFQtgaPJ0aSrhQKSC9ynZd12gxjvq1BxzGbQCjsMJgFQV=w2400'
+    'https://lh3.googleusercontent.com/P7eMUwp9qFLeuOw8hF5hUAXSGIy1_3jMJrDdq1RIQgtwRAHcZ6k3tKsjjcNBhbF8Ht3R7RysoLUnsEwpGk-bbm4TgoVumolBy031f_GmtPCgt5-MDOvaIJ6cM6wtuwxHY4j4rhFn=w2400'
 ]
-let i = 0
+
 function Home() {
-    const [user] = useStateValue()
-    const [imgurl,seturl] = useState(images[i])
-    const [books,setBooks] = useState('')
-    const [electronics,setElectronics] = useState('')
-    const [tv,setTv] = useState('')
-    
-    const cityRef = db.collection('store').doc('products')
-        const docu = cityRef.get()
-        docu.then((docu)=> {
-           let obj = docu.data() 
-        setBooks(obj.books)
-        setElectronics(obj.electronics)
-        setTv(obj.tv)
+    const [{user,books,electronics,tv}] = useStateValue()   
 
-        })
-   
-
-
+ 
     return (
         <div className="home">
             <div className="home-container">
-                <img className="home-img-ad" src={imgurl} alt="Prime AD"></img>
+                <figure>
+                <img className="home-img-ad" src={images[0]} alt="Prime AD"></img>
+                <img className="home-img-ad" src={images[1]} alt="Prime AD"></img>
+                <img className="home-img-ad" src={images[2]} alt="Prime AD"></img>
+                <img className="home-img-ad" src={images[3]} alt="Prime AD"></img>
+                <img className="home-img-ad" src={images[4]} alt="Prime AD"></img> 
+                </figure>               
             </div>
 
             <div className="home-row">

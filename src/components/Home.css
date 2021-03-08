@@ -13,16 +13,54 @@
     width: 100%;
     z-index:-1;
     opacity: 1;
-    transition-property: all;
-    transition-duration: 1s;
-    animation-name:slide;
-    animation-duration: 8s;
-    animation-iteration-count: infinite;
+   
 }
 
 
 .home-container {
-    height:300px; 
+    overflow: hidden;
+    height:300px;
+    
+}
+
+.home-container > figure {
+    position:relative;
+    width: 500%;
+    margin:0;
+    left:0;
+    animation: 20s slider infinite;
+}
+
+.home-container > figure > img {
+    width: 20%;
+    float:left;
+}
+
+@keyframes slider {
+    0% {
+        left:0
+    }
+    20% {
+        left:0;
+    }
+    25% {
+        left:-100%;
+    }
+    45%{
+        left:-100%;
+    }
+    50%{
+        left:-200%;
+    }
+    70%{
+        left:-200%;
+    }
+    95%{
+        left:-300%;
+    }
+    100%{
+        left:-400%;
+    }
 }
 
 .home-row {

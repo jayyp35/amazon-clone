@@ -1,6 +1,5 @@
 import React from 'react'
 import './Product.css'
-import book1 from './book1.jfif'
 import { useStateValue } from './StateProvider';
 
 function Product({id,name,desc,price,img_url}) {
@@ -44,3 +43,4 @@ function Product({id,name,desc,price,img_url}) {
 }
 
 export default Product
+

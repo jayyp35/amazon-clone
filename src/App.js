@@ -5,10 +5,11 @@ import Home from './components/Home'
 import Checkout from './components/Checkout'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import LoginBox from './components/LoginBox'
-import { auth } from './components/firebase';
+import { auth, db } from './components/firebase';
 import { useStateValue } from './components/StateProvider';
 import Payment from './components/Payment';
 import Orders from './components/Orders';
+import { CardActions } from '@material-ui/core';
 
 
 function App() {
@@ -33,6 +34,21 @@ function App() {
           })
         }
       })
+
+
+      const cityRef = db.collection('store').doc('products')
+        const docu = cityRef.get()
+        docu.then((docu)=> {
+           let obj = docu.data() 
+        
+           dispatch({
+             type:'SET_STORE',
+             books:obj.books,
+             electronics:obj.electronics,
+             tv:obj.tv,
+           })
+
+        })
     } 
   ,[])
 
