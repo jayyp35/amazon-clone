@@ -3,7 +3,7 @@ import './Product.css'
 import book1 from './book1.jfif'
 import { useStateValue } from './StateProvider';
 
-function Product({name,desc,price,img_url}) {
+function Product({id,name,desc,price,img_url}) {
     const [{basket},dispatch] = useStateValue();
     console.log("Items in Basket", basket);
     console.log(img_url);
@@ -12,6 +12,7 @@ function Product({name,desc,price,img_url}) {
         dispatch({
             type: 'ADD_TO_BASKET',
             item: {
+                id:id,
                 name: name,
                 desc: desc,
                 price: price,
@@ -28,7 +29,7 @@ function Product({name,desc,price,img_url}) {
                     <small> $ </small>
                     <strong>{price}</strong>
                 </p>
-                {/* {Array(rating).fill().map((_,i) => {<p>hi</p>})} */}
+                
             </div>
  
 

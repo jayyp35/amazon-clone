@@ -3,7 +3,7 @@ import book2 from './book1.jfif'
 import './CheckoutProduct.css'
 import { useStateValue } from './StateProvider';
 
-function CheckoutProduct({id,name,desc,price,rating}) {
+function CheckoutProduct({id,name,desc,price,img_url}) {
     const [{basket},dispatch] = useStateValue();
     const removeFromBasket = () => {
         //remove the item from the basket
@@ -16,7 +16,7 @@ function CheckoutProduct({id,name,desc,price,rating}) {
         <div className="checkout-product">
 
             <div className="checkout-product-image">
-                <img src={book2} alt="book"></img>     
+                <img src={img_url} width="100" alt="book"></img>     
             </div>
 
             <div className="checkout-product-info">

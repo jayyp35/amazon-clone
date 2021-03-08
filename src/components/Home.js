@@ -22,10 +22,10 @@ function Home() {
     const cityRef = db.collection('store').doc('products')
         const docu = cityRef.get()
         docu.then((docu)=> {
-            
-        setBooks(docu.data().books)
-        setElectronics(docu.data().electronics)
-        setTv(docu.data().tv)
+           let obj = docu.data() 
+        setBooks(obj.books)
+        setElectronics(obj.electronics)
+        setTv(obj.tv)
 
         })
    
@@ -38,13 +38,13 @@ function Home() {
             </div>
 
             <div className="home-row">
-                {books && books.map((book,index) => <Product name={book.name} desc={book.desc} price ={book.price} img_url={book.img_url}/>)}
+                {books && books.map((book,index) => <Product id={book.id} name={book.name} desc={book.desc} price ={book.price} img_url={book.img_url}/>)}
             </div>
             <div className="home-row">
-                {electronics && electronics.map((elec,index) => <Product name={elec.name} desc={elec.desc} price ={elec.price} img_url={elec.img_url}/>)}
+                {electronics && electronics.map((elec,index) => <Product id={elec.id} name={elec.name} desc={elec.desc} price ={elec.price} img_url={elec.img_url}/>)}
             </div>
             <div className="home-row">
-                {tv && tv.map((t,index) => <Product name={t.name} desc={t.desc} price ={t.price} img_url={t.img_url}/>)}
+                {tv && tv.map((t,index) => <Product id={t.id} name={t.name} desc={t.desc} price ={t.price} img_url={t.img_url}/>)}
             </div>
         </div>
     )
