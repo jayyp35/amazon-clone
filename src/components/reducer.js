@@ -1,7 +1,14 @@
 export const initialState = {
     basket: [],
     basketTotal:0.00,
-    user:null,
+    user: {
+        auth:null,
+        name:null,
+        phone:null,
+        email:null,
+        address1:null,
+        address2:null,
+    },
     books:[],
     electronics:[],
     tv:[]
@@ -49,7 +56,7 @@ const reducer = (state,action) => {
                 electronics:action.electronics,
                 tv:action.tv
             }
-
+        
          
         default:
             return state;

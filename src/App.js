@@ -10,6 +10,7 @@ import { useStateValue } from './components/StateProvider';
 import Payment from './components/Payment';
 import Orders from './components/Orders';
 import Loading from './components/Loading';
+import Register from './components/Register';
 
 
 function App() {
@@ -22,9 +23,12 @@ function App() {
       
         if(authUser) {
           //user is logged in
+          console.log("Ye hai user",authUser );
           dispatch({
             type:'SET_USER',
-            user: authUser
+            user: {
+              auth: authUser
+            }
           })
 
         } else {
@@ -83,6 +87,10 @@ function App() {
         <Route path='/orders'>
           <Header/>
           <Orders/>
+        </Route>
+
+        <Route path='/register'>
+          <Register/>
         </Route>
 
 

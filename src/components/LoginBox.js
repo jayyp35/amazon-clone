@@ -23,18 +23,8 @@ function LoginBox() {
 
     const register = e => {
         e.preventDefault(); //prevents refresh
-
-        //firebase register
-        auth
-        .createUserWithEmailAndPassword(email,password)
-        .then((auth) => {
-            console.log(auth);
-            if(auth) {
-                history.push("/")
-            }
-        }).catch((err) => {
-            alert(err)
-        })
+        history.push('/register')
+        
     }
 
     return ( 
