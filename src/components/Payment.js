@@ -9,25 +9,27 @@ function Payment() {
     const history = useHistory();
     
     const [inputs,setInputs] = useState({
-        cardnum: null,
-        exp: null,
-        cvv: null
+        cardnum: '',
+        exp: '',
+        cvv: '',
     })
 
     function initiatePayment() {
         console.log("Payment Initiated");
         setTimeout(() => {
             history.push('/orders')
-        }, 2000);
+        }, 1000);
     }
 
     return (
         <div className="payment">
             <div className="payment-info">
-                    <div className="payment-info-item"><strong>Name: </strong>Name</div>
-                    <div className="payment-info-item"><strong>Phone Number: </strong>8587013931</div>
-                    <div className="payment-info-item"><strong>Email Address: </strong>{user && user.email}</div>
-                    <div className="payment-info-item"><strong>Delivery Address: </strong>E5/68 , Sector-16, Rohini, New Delhi</div>
+                    {!user.auth && <p className="payment-info-warn"><small>Please sign-in to continue</small></p>}
+                    <div className="payment-info-item"><strong>Name: </strong>{user? user.name:''}</div>
+                    <div className="payment-info-item"><strong>Phone Number: </strong>{user? user.phone:''}</div>
+                    <div className="payment-info-item"><strong>Email Address: </strong>{user? user.email:''}</div>
+                    <div className="payment-info-item"><strong>Delivery Address: </strong>{user? (user.address1+" " +user.address2):'' }</div>
+                    
             </div>
 
             <div className="payment-total">

@@ -3,18 +3,25 @@ import './Header.css'
 import amazonnavlogo from './amz_navlogo.png'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from '@material-ui/icons/Search';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 import { auth } from './firebase';
 
 function Header() {
     const [{basket,user},dispatch] = useStateValue();
-
+    const history = useHistory()
     const handleAuthentication = () => {
-        if(user) {
+        if(user.auth) {
             auth.signOut();
+
+            dispatch({
+                type:'LOG_OUT',
+            })
+        } else {
+            history.push('/login')
         }
-    } 
+    }
+    console.log("Header",user);
 
     return (
         <div className="header">
@@ -30,7 +37,7 @@ function Header() {
                 <Link to={!user && '/login'}>
                 <div onClick={handleAuthentication} className="header-option">
                     <span className="header-option-one">Hello</span>
-                    <span className="header-option-two"><b>{user? 'Sign Out' : 'Sign in'}</b></span>
+                    <span className="header-option-two"><b>{user.auth? 'Sign Out' : 'Sign in'}</b></span>
                 </div>
                 </Link>
                 <div className="header-option">

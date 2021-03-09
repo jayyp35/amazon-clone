@@ -26,7 +26,6 @@ function Register() {
         console.log(reg);
         
         if(reg.password == reg.repassword) {
-             history.push("/")
              registeruser();
         } else {
             alert("pass mismatch")
@@ -45,7 +44,7 @@ function Register() {
                 storeuserdetails(auth);
                 
                 dispatch({
-                    type:'SET_USER',
+                    type:'SET_USER_REG',
                     user: {
                         auth:auth,
                         name:reg.name,
@@ -55,6 +54,9 @@ function Register() {
                         address2:reg.address2,
                     }
                 })
+                
+                console.log("state changed to ", user);
+                history.push("/")
             }
         }).catch((err) => {
             alert(err)
@@ -62,8 +64,6 @@ function Register() {
     }
 
     function storeuserdetails(auth) {
-        console.log("changing state and writing to doc on fb");
-        console.log(auth);
 
         db.collection('users')
         .doc(auth?.user.uid).collection('userdata').doc('registerdata').set({

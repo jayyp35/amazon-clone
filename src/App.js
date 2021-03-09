@@ -14,22 +14,27 @@ import Register from './components/Register';
 
 
 function App() {
-  const [{},dispatch] = useStateValue();
+  const [{user},dispatch] = useStateValue();
+  console.log("reloading");
+  console.log("user ye tha",user);
   const [data,gotData] = useState(false);
+  
   let obj
+  
+  
   useEffect(() => {
+      
       //Runs once when app component loads
       auth.onAuthStateChanged(authUser => {
       
         if(authUser) {
           //user is logged in
-          console.log("Ye hai user",authUser );
+          console.log("App reloaded signing in again as",authUser);
           dispatch({
             type:'SET_USER',
-            user: {
               auth: authUser
             }
-          })
+          )
 
         } else {
           //user is logged out
@@ -41,8 +46,8 @@ function App() {
       })
 
       
-      const cityRef = db.collection('store').doc('products')
-        const docu = cityRef.get()
+      const docRef = db.collection('store').doc('products')
+        const docu = docRef.get()
         docu.then((docu)=> {
            obj = docu.data() 
           console.log("loaded",obj);

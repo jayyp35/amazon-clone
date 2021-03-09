@@ -10,6 +10,8 @@
     align-items: center;
     padding: 2%;
     margin: 8px;
+    transition: all;
+    transition-duration: 2s;
     
 }
 
@@ -54,7 +56,9 @@
     font-weight:600;
 }
 
-
+.payment-info-warn {
+    color:rgb(114, 5, 5);
+}
 .payment-card-field {
     
     text-align: left;

@@ -2,19 +2,34 @@ import React, { useState } from 'react'
 import amz_logo_black from './amz_logo_black.png'
 import {Link,useHistory} from 'react-router-dom'
 import './LoginBox.css'
-import {auth} from './firebase'
+import {auth, db} from './firebase'
+import { useStateValue } from './StateProvider'
 
 function LoginBox() {
+    const[{},dispatch] = useStateValue()
     const history = useHistory();
     const [email,setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    let obj
     const signIn = e => {
         e.preventDefault(); //prevents refresh
 
         //firebase signIn
         auth.signInWithEmailAndPassword(email,password)
         .then(auth => {
+            const docRef = db.collection('users').doc(auth.user.uid).collection('userdata').doc('registerdata')
+            const docu = docRef.get()
+            docu.then((docu)=> {
+                obj = docu.data() 
+                console.log(obj)
+                dispatch({
+                type:'SET_USER_LOGIN',
+                user:{
+                    ...obj,
+                    auth:auth,
+                }
+                })
+            })
             history.push('/')
         }).catch(error => {
             alert(error)

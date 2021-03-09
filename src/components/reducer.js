@@ -43,10 +43,26 @@ const reducer = (state,action) => {
                 basketTotal:newTotal
             }
         
+        case 'SET_USER_REG' :
+            return {
+                ...state,
+                user: {
+                    auth:action.user.auth,
+                    name:action.user.name,
+                    phone:action.user.phone,
+                    email:action.user.email,
+                    address1:action.user.address1,
+                    address2:action.user.address2,
+                }
+            }
+
         case 'SET_USER' :
             return {
                 ...state,
-                user:action.user
+                user: {
+                    ...state.user,
+                    auth:action.auth
+                }
             }
         
         case 'SET_STORE' :
@@ -56,6 +72,26 @@ const reducer = (state,action) => {
                 electronics:action.electronics,
                 tv:action.tv
             }
+        case 'SET_USER_LOGIN' :
+            return {
+                ...state,
+                user:action.user,
+            }
+        
+
+        case 'LOG_OUT' :
+            return {
+                ...state,
+                user: {
+                    auth:null,
+                    name:null,
+                    phone:null,
+                    email:null,
+                    address1:null,
+                    address2:null,
+                }
+            }
+            
         
          
         default:
