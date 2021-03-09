@@ -37,7 +37,7 @@ function LoginBox() {
         })
     }
 
-    return (
+    return ( 
         <div className="login">
             <Link to='/'>
             <img className="login-logo" src={amz_logo_black} alt="amazon-logo"></img>
