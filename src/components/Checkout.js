@@ -6,7 +6,7 @@ import amz_checkout_ad from './amz_checkout_ad.png'
 import CheckoutProduct from './CheckoutProduct'
 import { useStateValue } from './StateProvider'
 
-function Checkout() {
+function Checkout() { 
     const [{basket,user}] = useStateValue();
     return (
         <div className="checkout">
